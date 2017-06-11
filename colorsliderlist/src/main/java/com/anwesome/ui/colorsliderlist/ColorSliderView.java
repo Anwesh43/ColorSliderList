@@ -82,9 +82,6 @@ public class ColorSliderView extends View {
         public void draw(Canvas canvas,float x) {
             canvas.save();
             canvas.translate(x,h/2);
-            if(this.x == -1) {
-                this.x = x;
-            }
             canvas.rotate(deg);
             paint.setColor(Color.WHITE);
             paint.setStyle(Paint.Style.STROKE);
@@ -103,7 +100,7 @@ public class ColorSliderView extends View {
             deg = 45*factor;
         }
         public boolean handleTap(float x,float y) {
-            return x>=this.x-w/15 && x<=this.x+w/15 && y>=h/2-w/15 && y<=h/2+w/15;
+            return x>=colorSlider.getWx()-w/15 && x<=colorSlider.getWx()+w/15 && y>=h/2-w/15 && y<=h/2+w/15;
         }
     }
     private class AnimationHandler extends AnimatorListenerAdapter implements ValueAnimator.AnimatorUpdateListener {
