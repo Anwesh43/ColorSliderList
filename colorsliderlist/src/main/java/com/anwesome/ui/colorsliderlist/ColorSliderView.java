@@ -3,6 +3,7 @@ package com.anwesome.ui.colorsliderlist;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * Created by anweshmishra on 12/06/17.
@@ -25,6 +27,9 @@ public class ColorSliderView extends View {
     private AnimationHandler animationHandler;
     public ColorSliderView(Context context,int color) {
         super(context);
+        if(color != 0) {
+            this.color = color;
+        }
     }
     public void onDraw(Canvas canvas) {
         if(time == 0) {
@@ -133,5 +138,14 @@ public class ColorSliderView extends View {
             startAnim.addListener(this);
             endAnim.addListener(this);
         }
+    }
+    public static void create(Activity activity,int w,int h,int color) {
+        ColorSliderView colorSliderView = new ColorSliderView(activity,color);
+        activity.addContentView(colorSliderView,new ViewGroup.LayoutParams(w,h));
+    }
+    public static void create(ViewGroup viewGroup,int w,int h,int color) {
+        ColorSliderView colorSliderView = new ColorSliderView(viewGroup.getContext(),color);
+        viewGroup.addView(colorSliderView,new ViewGroup.LayoutParams(w,h));
+
     }
 }
