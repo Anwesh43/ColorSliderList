@@ -16,6 +16,8 @@ import android.view.View;
 public class ColorSliderView extends View {
     private int color = Color.parseColor("#00BCD4");
     private int time = 0,w,h;
+    private PlusButton plusButton;
+    private ColorSlider colorSlider;
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     public ColorSliderView(Context context,int color) {
         super(context);
@@ -24,10 +26,20 @@ public class ColorSliderView extends View {
         if(time == 0) {
             w = canvas.getWidth();
             h = canvas.getHeight();
+            colorSlider = new ColorSlider();
+            plusButton = new PlusButton();
         }
+        colorSlider.draw(canvas);
+        plusButton.draw(canvas,colorSlider.getWx());
         time++;
     }
-    public void update() {
+    public void update(float factor) {
+        if(plusButton != null) {
+            plusButton.update(factor);
+        }
+        if(colorSlider != null) {
+            colorSlider.update(factor);
+        }
         postInvalidate();
     }
     public boolean onTouchEvent(MotionEvent event) {
