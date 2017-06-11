@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.RectF;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -30,5 +32,20 @@ public class ColorSliderView extends View {
     }
     public boolean onTouchEvent(MotionEvent event) {
         return true;
+    }
+    private class ColorSlider {
+        private float wx = 0;
+        public void draw(Canvas canvas) {
+            paint.setColor(Color.argb(150,Color.red(color),Color.green(color),Color.blue(color)));
+            canvas.drawRect(new RectF(0,0,wx,h),paint);
+            Path path = new Path();
+            path.moveTo(wx,0);
+            path.lineTo(wx+w/5,h/2);
+            path.lineTo(wx,h);
+            canvas.drawPath(path,paint);
+        }
+        public void update(float factor) {
+            wx = 4*w/5*factor;
+        }
     }
 }
