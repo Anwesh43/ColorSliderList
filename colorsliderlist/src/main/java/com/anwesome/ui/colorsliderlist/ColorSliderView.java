@@ -47,5 +47,31 @@ public class ColorSliderView extends View {
         public void update(float factor) {
             wx = 4*w/5*factor;
         }
+        public float getWx() {
+            return wx;
+        }
+    }
+    private class PlusButton {
+        private float deg = 0;
+        public void draw(Canvas canvas,float x) {
+            canvas.save();
+            canvas.translate(x,h/2);
+            canvas.rotate(deg);
+            paint.setColor(Color.WHITE);
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setStrokeWidth(w/70);
+            paint.setStrokeCap(Paint.Cap.ROUND);
+            canvas.drawCircle(0,0,w/15,paint);
+            for(int i=0;i<4;i++) {
+                canvas.save();
+                canvas.rotate(i*90);
+                canvas.drawLine(-w/20,0,w/20,0,paint);
+                canvas.restore();
+            }
+            canvas.restore();
+        }
+        public void update(float factor) {
+            deg = 45*factor;
+        }
     }
 }
